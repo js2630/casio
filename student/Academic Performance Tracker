@@ -1,0 +1,86 @@
+class Course {
+    private String courseName;
+    private String courseCode;
+
+    public Course(String courseName, String courseCode) {
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+    }
+
+    public String getCourseName() { return courseName; }
+    public String getCourseCode() { return courseCode; }
+
+    public String toString() {
+        return courseName + " (" + courseCode + ")";
+    }
+}
+
+class Student {
+    private String name;
+    private int id;
+    private Course course;
+    private int marks;
+
+    public Student(String name, int id, Course course, int marks) {
+        this.name = name;
+        this.id = id;
+        this.course = course;
+        this.marks = marks;
+    }
+
+    public String getName() { return name; }
+    public int getId() { return id; }
+    public Course getCourse() { return course; }
+    public int getMarks() { return marks; }
+    public void setMarks(int marks) { this.marks = marks; }
+
+    public String calculateGrade() {
+        if (marks >= 90) return "A+";
+        else if (marks >= 80) return "A";
+        else if (marks >= 70) return "B";
+        else if (marks >= 60) return "C";
+        else if (marks >= 50) return "D";
+        else return "F";
+    }
+
+    public String toString() {
+        return "Student ID: " + id +
+               "\nName: " + name +
+               "\nCourse: " + course +
+               "\nMarks: " + marks +
+               "\nGrade: " + calculateGrade();
+    }
+}
+
+class SpecialStudent extends Student {
+    public SpecialStudent(String name, int id, Course course, int marks) {
+        super(name, id, course, marks);
+    }
+
+    public String calculateGrade() {
+        String baseGrade = super.calculateGrade();
+        return getMarks() >= 95 ? baseGrade + " (Top Performer)" : baseGrade;
+    }
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Course math = new Course("Mathematics", "MATH101");
+        Course physics = new Course("Physics", "PHY102");
+        Course cs = new Course("Computer Science", "CS103");
+
+        Student[] students = {
+            new Student("jagadish", 1, math, 78),
+            new Student("sarathy", 2, physics, 62),
+            new SpecialStudent("mike", 3, cs, 96),
+            new SpecialStudent("jade", 4, math, 88),
+            new Student("jd", 5, cs, 45)
+        };
+
+        for (Student s : students) {
+            System.out.println("----- Student Record -----");
+            System.out.println(s + "\n");
+        }
+    }
+}
